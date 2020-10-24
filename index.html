@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Covid Updates</title>
+        <meta name="description" content="A live Covid-19 Tracker">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <center>
+        <h1 style="color:gray; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; font-size: 3.5vw; padding-left: 20px">Live Covid-19 Tracker</h1>
+        <hr class="new5">
+        </center>
+    <body>
+<center>
+    <div>
+    <div style = "border: 5px solid #5F7FFF; background-color: #ECF0F2; text-align: center;">
+    <h1 style="color:gray; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px">Worldwide Covid-19 Data:</h2>
+    <h1 style="color:red; font-size: 1.5vw;">Total Cases: <span id="cases"></span></h1>
+    <h1 style="color:gray; font-size: 1.5vw;">Total Deaths: <span id="dead"></span></h1>
+    <h1 style="color:#5F7FFF; font-size: 1.5vw;">Total Recovered: <span id="recovered"></span></h1>
+
+        
+    </div>
+    <hr class="new5">
+    
+    <div style = "border: 5px solid #5F7FFF; background-color: #ECF0F2; text-align: center;">
+    <h1 style="color:gray; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px">United States Covid-19 Data:</h1>
+    <h1 style="color:red; font-size: 1.5vw;">Total Cases: <span id="countrycases"></span></h1>
+    <h1 style="color:gray; font-size: 1.5vw;">Total Deaths: <span id="countrydead"></span></h1>
+    <h1 style="color:#5F7FFF; font-size: 1.5vw;">Total Recovered: <span id="countryrecovered"></span></h1>
+
+        
+    </div>
+    </div>
+        <hr class="new5">
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="HenryBass" data-color="#5F7FFF" data-emoji="👍" data-font="Lato" data-text="Support Me" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+            <h2 style="color:gray; padding-top: 20px; padding-right: 20px; padding-bottom: 0px; padding-left: 20px">Wear a mask!</h2>
+    <h5 style="color:gray; padding-top: 0px; padding-right: 20px; padding-left: 20px">Made by Henry Bass - 2020.</h5>
+
+</center>
+<script>
+
+window.setInterval(function(){
+  refresh();
+}, 500000);
+window.onload = refresh;
+function refresh() {
+fetch('https://api.covid19api.com/world/total')
+  .then(response => response.json())
+  .then(data => document.getElementById("cases").innerHTML = data.TotalConfirmed);
+    
+fetch('https://api.covid19api.com/world/total')
+  .then(response => response.json())
+  .then(data => document.getElementById("dead").innerHTML = data.TotalDeaths);
+    
+fetch('https://api.covid19api.com/world/total')
+  .then(response => response.json())
+  .then(data => document.getElementById("recovered").innerHTML = data.TotalRecovered)
+    
+fetch('https://api.covidtracking.com/v1/us/current.json')
+  .then(response => response.json())
+  .then(data => document.getElementById("countrycases").innerHTML = data[0].positive);
+    
+fetch('https://api.covidtracking.com/v1/us/current.json')
+  .then(response => response.json())
+  .then(data => document.getElementById("countrydead").innerHTML = data[0].death);
+    
+fetch('https://api.covidtracking.com/v1/us/current.json')
+  .then(response => response.json())
+  .then(data => document.getElementById("countryrecovered").innerHTML = data[0].recovered);
+    
+}
+</script>
+    </body>
+</html>
